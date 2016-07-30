@@ -34,7 +34,9 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchListener;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
@@ -55,10 +57,17 @@ public class CloseCommandRunner extends AbstractAtomCommandRunner {
 	@Override
 	protected void internalExecute(final Command cmd) throws Exception {
 		final CloseCommand c = (CloseCommand) cmd;
-				
-		IWorkbench workbench = PlatformUI.getWorkbench();
-
-		workbench.close();	
+						
+		if (!PlatformUI.isWorkbenchRunning())
+			return;
+		final IWorkbench workbench = PlatformUI.getWorkbench();
+		final Display display = workbench.getDisplay();
+		display.syncExec(new Runnable() {
+			public void run() {
+				if (!display.isDisposed())
+					workbench.close();
+			}
+		});		 
 	}
 }
 
