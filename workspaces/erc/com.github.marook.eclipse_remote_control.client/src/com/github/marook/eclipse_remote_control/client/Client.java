@@ -29,20 +29,30 @@ import com.github.marook.eclipse_remote_control.client.parser.CommandParseExcept
 import com.github.marook.eclipse_remote_control.client.parser.CommandParser;
 import com.github.marook.eclipse_remote_control.client.parser.ExecuteCommandParser;
 import com.github.marook.eclipse_remote_control.client.parser.OpenFileCommandParser;
+import com.github.marook.eclipse_remote_control.client.parser.ImportProjectCommandParser;
+import com.github.marook.eclipse_remote_control.client.parser.SwitchWorkspaceCommandParser;
+import com.github.marook.eclipse_remote_control.client.parser.CloseCommandParser;
 import com.github.marook.eclipse_remote_control.command.command.Command;
 import com.github.marook.eclipse_remote_control.command.command.ExternalToolsCommand;
 import com.github.marook.eclipse_remote_control.command.command.OpenFileCommand;
+import com.github.marook.eclipse_remote_control.command.command.SwitchWorkspaceCommand;
 import com.github.marook.eclipse_remote_control.command.serialize.ICommandEncoder;
 import com.github.marook.eclipse_remote_control.command.serialize.impl.serialize.SerializeCommandEncoder;
 
 public class Client {
+	private static final int PORT = 53343;
 	
 	private CommandParser[] PARSERS = new CommandParser[]{
 		new OpenFileCommandParser(),
-		new ExecuteCommandParser()
+		new ExecuteCommandParser(),
+		new ImportProjectCommandParser(),
+		new SwitchWorkspaceCommandParser(),
+		new CloseCommandParser(),
 	};
 
 	private void printUsage(final PrintStream out){
+		out.println("Eclipse Remote Controller v1.3.2");
+		out.println("");
 		out.println("Possible commands are:");
 		
 		for(final CommandParser parser : PARSERS){
@@ -61,7 +71,7 @@ public class Client {
 	 * @deprecated Instantiate Client and run fireCmd instead.
 	 */
 	public static void fireCommand(final Command cmd) throws IOException{
-		final Socket s = new Socket("localhost", 53343);
+		final Socket s = new Socket("localhost", PORT);
 			
 		final ICommandEncoder ce = new SerializeCommandEncoder();
 		final ObjectOutput cmdEncoder = ce.createEncoder(s.getOutputStream());

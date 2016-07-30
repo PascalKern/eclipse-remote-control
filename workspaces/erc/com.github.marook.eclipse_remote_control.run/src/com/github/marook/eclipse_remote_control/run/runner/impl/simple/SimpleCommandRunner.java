@@ -27,6 +27,9 @@ import com.github.marook.eclipse_remote_control.run.runner.ICommandRunner;
 import com.github.marook.eclipse_remote_control.run.runner.impl.simple.atom.AbstractAtomCommandRunner;
 import com.github.marook.eclipse_remote_control.run.runner.impl.simple.atom.ExternalToolsCommandRunner;
 import com.github.marook.eclipse_remote_control.run.runner.impl.simple.atom.OpenFileCommandRunner;
+import com.github.marook.eclipse_remote_control.run.runner.impl.simple.atom.ImportProjectCommandRunner;
+import com.github.marook.eclipse_remote_control.run.runner.impl.simple.atom.SwitchWorkspaceCommandRunner;
+import com.github.marook.eclipse_remote_control.run.runner.impl.simple.atom.CloseCommandRunner;
 
 public class SimpleCommandRunner implements ICommandRunner {
 	
@@ -40,6 +43,9 @@ public class SimpleCommandRunner implements ICommandRunner {
 	static {
 		putAtomRunner(new OpenFileCommandRunner());
 		putAtomRunner(new ExternalToolsCommandRunner());
+		putAtomRunner(new ImportProjectCommandRunner());
+		putAtomRunner(new SwitchWorkspaceCommandRunner());
+		putAtomRunner(new CloseCommandRunner());
 	}
 
 	@Override
