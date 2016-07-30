@@ -690,6 +690,7 @@ Public License instead of this License.  But first, please read
    </copyright>
 
    <url>
+      <update url="https://github.com/hamletg/eclipse-remote-control/raw/master/workspaces/erc/update_site"/>
       <discovery label="homepage" url="http://github.com/marook/eclipse-remote-control"/>
    </url>
 
@@ -710,21 +711,21 @@ Public License instead of this License.  But first, please read
          id="com.github.marook.eclipse_remote_control"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.3.2.qualifier"
          unpack="false"/>
 
    <plugin
          id="com.github.marook.eclipse_remote_control.command"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.3.2.qualifier"
          unpack="false"/>
 
    <plugin
          id="com.github.marook.eclipse_remote_control.run"
          download-size="0"
          install-size="0"
-         version="0.0.0"
+         version="1.3.2.qualifier"
          unpack="false"/>
 
 </feature>
