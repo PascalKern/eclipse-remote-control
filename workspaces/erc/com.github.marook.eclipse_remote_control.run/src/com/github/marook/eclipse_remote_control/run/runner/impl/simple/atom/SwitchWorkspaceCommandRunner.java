@@ -34,6 +34,7 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -95,8 +96,18 @@ public class SwitchWorkspaceCommandRunner extends AbstractAtomCommandRunner {
 		System.setProperty(PROP_EXIT_CODE, Integer.toString(24));
 		System.setProperty(PROP_EXIT_DATA, command_line);
 		
-		IWorkbench wb = PlatformUI.getWorkbench();
-		wb.restart();
+		final IWorkbench wb = PlatformUI.getWorkbench();
+		
+		if (!PlatformUI.isWorkbenchRunning())
+			return;
+		
+		final Display display = wb.getDisplay();
+		display.syncExec(new Runnable() {
+			public void run() {
+				if (!display.isDisposed())
+					wb.restart();
+			}
+		});		
 	}
 	
 	/**
